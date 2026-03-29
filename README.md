@@ -2,7 +2,10 @@
 
 RustGuard is a Rust-powered graphical client for Linux and Windows for managing and securing WireGuard VPN connections with performance, safety, and simplicity.
 
-![RustGuard Logo](website/assets/rustguard_logo_with_text.png)
+» [WebSite](https://websvcpt.github.io/RustGuard/)
+
+
+![RustGuard Logo](docs/assets/rustguard_logo_with_text.png)
 
 ## Application identifiers
 
@@ -70,7 +73,6 @@ sudo apt-get install -y libwebkit2gtk-4.1-0 libgtk-3-0
 - Tests and lint: `.github/workflows/ci.yml`
 - Semantic version tagging on merge to master: `.github/workflows/version-tag.yml`
 - Cross-platform builds and release publishing on tags: `.github/workflows/release.yml`
-- Website deploy to GitHub Pages: `.github/workflows/pages.yml`
 
 ## Assets
 
