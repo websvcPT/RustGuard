@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RustGuard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <img class="brand-logo" src="./assets/logo-original.png" alt="RustGuard logo" />
+          <div>
+            <h1>RustGuard</h1>
+            <p>WireGuard Manager</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-tab="tunnels">Tunnels</button>
+          <button class="nav-item" data-tab="add">Add Tunnel</button>
+          <button class="nav-item" data-tab="settings">Settings</button>
+          <button class="nav-item" data-tab="logs">Logs</button>
+        </nav>
+
+        <div class="sidebar-stats">
+          <div class="stat-row"><span>Saved</span><strong id="savedCount">0</strong></div>
+          <div class="stat-row"><span>Active</span><strong id="activeCount">0</strong></div>
+          <div class="version-row" id="appVersionLabel">RustGuard 0.0.0</div>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="header">
+          <div>
+            <h2 id="tabTitle">Tunnels</h2>
+            <p id="tabSubtitle">Manage your saved WireGuard tunnels.</p>
+          </div>
+          <div id="statusPill" class="status-pill idle">Idle</div>
+        </header>
+
+        <section class="card tab-panel" id="tab-tunnels">
+          <div class="section-header">
+            <h3>Saved Tunnels</h3>
+            <button id="toAddBtn" class="btn btn-primary">Add Tunnel</button>
+          </div>
+          <div id="tunnelList" class="list"></div>
+        </section>
+
+        <section class="card tab-panel hidden" id="tab-add">
+          <div class="section-header">
+            <h3 id="addPanelTitle">Add Tunnel</h3>
+            <button id="importBtn" class="btn">Import from file</button>
+          </div>
+          <label class="field-label" for="tunnelName">Tunnel name</label>
+          <input id="tunnelName" class="input" type="text" placeholder="office-vpn" />
+
+          <label class="field-label" for="tunnelConfig">Tunnel configuration</label>
+          <textarea id="tunnelConfig" class="textarea" rows="12"></textarea>
+
+          <div class="row">
+            <button id="saveTunnelBtn" class="btn btn-primary">Save Tunnel</button>
+            <button id="clearTunnelBtn" class="btn">Clear</button>
+            <button id="cancelTunnelBtn" class="btn">Cancel</button>
+          </div>
+        </section>
+
+        <section class="card tab-panel hidden" id="tab-settings">
+          <h3>Settings</h3>
+          <div class="setting">
+            <label><input id="autoStart" type="checkbox" /> Auto-start</label>
+          </div>
+          <div class="setting">
+            <label><input id="startInTray" type="checkbox" /> Start minimized in system tray</label>
+          </div>
+          <div class="setting">
+            <label><input id="allowMultiple" type="checkbox" /> Allow multiple active tunnels</label>
+          </div>
+          <div class="setting version-setting">
+            <div class="version-header">
+              <span>Current version:</span>
+              <strong id="currentVersionValue">0.0.0</strong>
+              <button id="checkVersionBtn" class="btn btn-check-version">Check for updates</button>
+            </div>
+            <div id="updateStatusMessage" class="update-status">
+              No update check has been performed yet.
+            </div>
+          </div>
+          <div class="setting">
+            <label><input id="checkUpdates" type="checkbox" /> Check updates on start</label>
+          </div>
+          <div class="meta">
+            <div><strong>Settings folder:</strong> <span id="settingsFolder"></span></div>
+          </div>
+        </section>
+
+        <section class="card tab-panel hidden" id="tab-logs">
+          <div class="section-header">
+            <h3>Logs</h3>
+            <button id="clearLogsBtn" class="btn">Clear logs</button>
+          </div>
+          <div id="logs" class="logs"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

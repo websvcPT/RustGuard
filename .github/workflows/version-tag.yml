@@ -1,0 +1,40 @@
+name: Version and Tag
+
+on:
+  push:
+    branches: ["master"]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine semantic version
+        id: semver
+        uses: paulhatch/semantic-version@v5.4.0
+        with:
+          tag_prefix: ""
+          major_pattern: "(MAJOR)"
+          minor_pattern: "(MINOR)"
+          version_format: "${major}.${minor}.${patch}"
+          bump_each_commit: true
+          search_commit_body: true
+
+      - name: Create git tag
+        env:
+          VERSION_TAG: v${{ steps.semver.outputs.version }}
+        run: |
+          if git rev-parse "$VERSION_TAG" >/dev/null 2>&1; then
+            echo "Tag already exists: $VERSION_TAG"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "$VERSION_TAG"
+          git push origin "$VERSION_TAG"
